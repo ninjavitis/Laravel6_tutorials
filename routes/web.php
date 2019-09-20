@@ -20,3 +20,17 @@ Route::get('test', function() {
         'name'=>request('name')
     ]);
 });
+
+Route::get('/posts/{post}', function($post){
+
+    $posts = [
+        'first_post' => 'blah blah blah',
+        'second_post' => 'blah2 blah2 blah2'
+    ];
+
+    if(!array_key_exists($post, $posts)){
+        abort(404, 'Post Not found');
+    }
+
+    return view('post',['post'=> $posts[$post]]);
+});
