@@ -2,17 +2,17 @@
 namespace App\Http\Controllers;
 
 class PostsController{
-  public function show($post){
-          $posts = [
-              'first_post' => 'blah blah blah',
-              'second_post' => 'blah2 blah2 blah2'
-          ];
+  public function show($slug){
+    // test the db connection
+    // if(\DB::connection()->getDatabaseName())
+    // {
+    //   echo "conncted sucessfully to database ".\DB::connection()->getDatabaseName();
+    // }
 
-          if(!array_key_exists($post, $posts)){
-              abort(404, 'Post Not found');
-          }
-
-          return view('post',['post'=> $posts[$post]]);
+    $post = \DB::table('posts')->where('slug', $slug)->first();
+    // use dd to log out the result
+    // dd($post);
+    return view('post',['post'=> $post]);
   }
 
   public function index(){

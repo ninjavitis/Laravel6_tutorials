@@ -35,8 +35,14 @@
 //     return view('post',['post'=> $posts[$post]]);
 // });
 
+\DB::listen(function($sql) {
+    \Log::info($sql->sql);
+    \Log::info($sql->bindings);
+    \Log::info($sql->time);
+});
+
 // routing to controllers
-Route::get('/posts/post/{post}', 'PostsController@show');
+Route::get('/posts/post/{slug}', 'PostsController@show');
 Route::get('/posts/index', 'PostsController@index');
 Route::post('/posts/new', 'PostsController@new');
 route::put('/posts/update', 'PostsController@update');
